@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ranking Geeks | SEO Engineering</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --bg-deep: #01040a;
+            --cyan-glow: #00f2fe;
+            --text-main: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(0, 242, 254, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--bg-deep); 
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(0, 242, 254, 0.05) 0%, transparent 50%),
+                radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0); 
+            background-size: 100% 100%, 40px 40px; 
+            color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            overflow-x: hidden; 
+        }
+
+        /* --- TOP BAR --- */
+        .top-bar {
+            background: rgba(0, 242, 254, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--cyan-glow);
+            font-weight: 600;
+        }
+
+        /* --- HEADER --- */
+        header {
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(1, 4, 10, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .logo img { height: 45px; }
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav ul li a { text-decoration: none; color: #fff; font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.7; }
+        nav ul li a:hover { opacity: 1; color: var(--cyan-glow); }
+
+        .btn-proposal {
+            border: 1px solid var(--cyan-glow);
+            color: var(--cyan-glow);
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.75rem;
+            transition: 0.4s;
+        }
+        .btn-proposal:hover { background: var(--cyan-glow); color: #000; box-shadow: 0 0 30px var(--cyan-glow); }
+
+        /* --- HERO SECTION --- */
+        .hero { min-height: 80vh; display: flex; align-items: center; padding: 60px 5%; }
+        .hero-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+        .hero-text h4 { color: var(--cyan-glow); letter-spacing: 5px; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 20px; }
+        .hero-text h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 30px; }
+        .hero-text h1 span { color: var(--cyan-glow); }
+        .hero-text p { color: var(--text-dim); font-size: 1.1rem; line-height: 1.8; margin-bottom: 45px; max-width: 600px; }
+        .cta-group { display: flex; gap: 20px; }
+        .btn-hero { padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.85rem; transition: 0.4s; border: 1px solid var(--cyan-glow); color: var(--cyan-glow); }
+        .btn-hero:hover { background: var(--cyan-glow); color: #000; transform: translateY(-3px); }
+        .video-container { position: relative; border-radius: 30px; overflow: hidden; box-shadow: 0 0 40px rgba(0, 242, 254, 0.1); border: 1px solid var(--glass-border); }
+        .video-container video { width: 100%; display: block; }
+
+        /* --- ABOUT SECTION --- */
+        .about-section { position: relative; padding: 120px 5%; display: flex; align-items: center; }
+        .about-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: center; }
+        .about-img-box { border-radius: 30px; overflow: hidden; border: 1px solid var(--glass-border); box-shadow: 0 0 50px rgba(0, 242, 254, 0.05); }
+        .about-img-box video { width: 100%; display: block; }
+        .about-text h2 { font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 800; margin-bottom: 25px; line-height: 1.2; }
+        .about-text h2 span { color: var(--cyan-glow); }
+        .about-text p { color: var(--text-dim); line-height: 1.9; margin-bottom: 35px; font-size: 1.15rem; }
+        .stat-card { background: rgba(255, 255, 255, 0.02); padding: 30px; border-radius: 24px; border: 1px solid var(--glass-border); text-align: center; flex: 1; transition: 0.4s; }
+        .stat-card h3 { color: var(--cyan-glow); font-size: 2.2rem; }
+
+        /* --- UPGRADED SERVICES SECTION --- */
+        .services-section { padding: 120px 5%; position: relative; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .services-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .service-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 24px;
+            padding: 60px 40px;
+            transition: all 0.4s ease-in-out;
+            border: 1px solid rgba(0, 242, 254, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        .service-card:hover { transform: translateY(-20px); border-color: var(--cyan-glow); box-shadow: 0 0 40px rgba(0, 242, 254, 0.2); }
+        .service-icon { font-size: 3rem; color: var(--cyan-glow); margin-bottom: 25px; transition: 0.5s; }
+        .service-card:hover .service-icon { transform: scale(1.2) rotate(10deg); text-shadow: 0 0 20px var(--cyan-glow); }
+        .service-card h3 { font-size: 1.8rem; font-weight: 900; margin-bottom: 15px; color: #fff; }
+        .service-card p { color: var(--text-dim); line-height: 1.8; margin-bottom: 30px; }
+        .service-number { position: absolute; top: 20px; right: 30px; font-size: 4rem; font-weight: 900; color: rgba(0, 242, 254, 0.03); z-index: -1; }
+        .learn-more { color: var(--cyan-glow); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+
+        @media (max-width: 1100px) {
+            .hero-grid, .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .cta-group { justify-content: center; }
+        }
+        .cta-section { padding: 100px 5%; }
+.cta-container { 
+    max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 0.8fr; 
+    gap: 60px; align-items: center; background: rgba(255, 255, 255, 0.02); 
+    border: 1px solid rgba(0, 242, 254, 0.15); padding: 80px; border-radius: 50px; backdrop-filter: blur(15px); 
+}
+.cta-title { font-size: clamp(2.5rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.1; margin-bottom: 30px; }
+.cta-title span { color: #00f2fe; }
+.cta-contact-details { display: flex; flex-direction: column; gap: 15px; }
+.cta-item { display: flex; align-items: center; gap: 15px; color: rgba(255, 255, 255, 0.7); font-size: 1.1rem; }
+.cta-item i { color: #00f2fe; width: 25px; }
+.cta-note { color: rgba(255, 255, 255, 0.5); margin-bottom: 35px; font-size: 1.1rem; }
+.btn-cta-main { 
+    display: inline-block; width: 100%; background: #00f2fe; color: #000; padding: 22px; 
+    border-radius: 50px; text-align: center; text-decoration: none; font-weight: 900; 
+    font-size: 1.1rem; transition: 0.4s; box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3); 
+}
+.btn-cta-main:hover { transform: scale(1.03); box-shadow: 0 15px 40px rgba(0, 242, 254, 0.5); }
+
+@media (max-width: 1100px) {
+    .cta-container { grid-template-columns: 1fr; padding: 50px 30px; text-align: center; }
+    .cta-item { justify-content: center; }
+}
+.logo a {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.logo img {
+    display: block; /* Gap khatam karne ke liye */
+}
+/* --- PROJECTS SECTION STYLING --- */
+.projects-section {
+    padding: 100px 5%;
+}
+
+.projects-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 242, 254, 0.1);
+    border-radius: 30px;
+    overflow: hidden;
+    transition: 0.4s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    border-color: #00f2fe;
+}
+
+.project-img {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.project-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.project-card:hover .project-img img {
+    transform: scale(1.1);
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(1, 4, 10, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.view-btn {
+    padding: 12px 25px;
+    background: #00f2fe;
+    color: #000;
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 50px;
+    font-size: 0.8rem;
+}
+
+.project-info {
+    padding: 30px;
+}
+
+.project-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.project-info p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.tags {
+    display: flex;
+    gap: 10px;
+}
+
+.tags span {
+    background: rgba(0, 242, 254, 0.1);
+    color: #00f2fe;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+/* --- FAST LOADING WORK SECTION --- */
+.work-section { padding: 60px 5%; background: #01040a; }
+
+.work-container {
+    max-width: 1300px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.work-card {
+    position: relative; height: 320px;
+    will-change: transform; /* Browser ko pehle se batata hai optimization ke liye */
+}
+
+.work-img {
+    width: 100%; height: 240px; border-radius: 15px;
+    overflow: hidden; border: 1px solid rgba(255,255,255,0.05);
+}
+
+.work-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: 0.3s ease; /* Slow transition ko fast kiya */
+}
+
+.work-overlay-box {
+    position: absolute; bottom: 10px; left: 50%;
+    transform: translateX(-50%); width: 85%;
+    background: #0d1117; border-radius: 12px;
+    padding: 20px; text-align: center;
+    border: 1px solid rgba(0, 242, 254, 0.1);
+}
+
+.work-overlay-box h3 { font-size: 1.3rem; color: #fff; margin-bottom: 5px; }
+
+.work-link {
+    color: #00f2fe; text-decoration: none; font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Hover effects ko simple rakha */
+.work-card:hover .work-img img { transform: scale(1.05); }
+/* --- WHY CHOOSE US (ROBOT STYLE) --- */
+.why-section { padding: 120px 5%; background-color: #01040a; overflow: hidden; }
+
+.why-container {
+    max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 50px; align-items: center;
+}
+
+/* Robot Styling */
+.robot-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.robot-box img {
+    width: 90%; /* Size adjust kar sakte hain */
+    height: auto;
+    filter: drop-shadow(0 0 30px rgba(0, 242, 254, 0.2)); /* Halka sa cyan glow */
+    animation: floating 3s ease-in-out infinite; /* Stylish floating effect */
+}
+
+/* Robot Floating Animation */
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Right Content */
+.why-subtitle { color: #00f2fe; letter-spacing: 4px; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 15px; }
+.why-title { font-size: clamp(2.2rem, 4.5vw, 3.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 25px; }
+.why-title span { color: #00f2fe; }
+.why-desc { color: rgba(255, 255, 255, 0.6); font-size: 1.05rem; line-height: 1.8; margin-bottom: 40px; }
+
+/* Grid Cards */
+.why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.why-card {
+    background: rgba(255, 255, 255, 0.03); 
+    border: 1px solid rgba(0, 242, 254, 0.1);
+    padding: 25px; border-radius: 20px; display: flex; gap: 15px; transition: 0.4s;
+    backdrop-filter: blur(10px);
+}
+.why-card:hover { transform: scale(1.02); border-color: #00f2fe; background: rgba(0, 242, 254, 0.05); }
+
+.why-icon-box {
+    width: 50px; height: 50px; background: rgba(0, 242, 254, 0.1);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: #00f2fe; flex-shrink: 0;
+}
+
+.why-text h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; }
+.why-text p { color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; line-height: 1.5; }
+
+@media (max-width: 1100px) {
+    .why-container { grid-template-columns: 1fr; text-align: center; }
+    .why-card { text-align: left; max-width: 500px; margin: 0 auto; }
+    .robot-box { order: -1; }
+    .robot-box img { width: 70%; }
+}
+/* --- FOOTER STYLING --- */
+.main-footer {
+    background: #01040a;
+    padding: 80px 5% 0;
+    border-top: 1px solid rgba(0, 242, 254, 0.1);
+    color: #fff;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 0.6fr 0.8fr 1.2fr;
+    gap: 40px;
+    padding-bottom: 60px;
+}
+
+.footer-col h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #00f2fe;
+}
+
+/* Branding & Logo */
+.footer-logo img {
+    max-width: 160px;
+    margin-bottom: 20px;
+}
+.footer-about {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+/* Socials */
+.footer-socials { display: flex; gap: 15px; }
+.footer-socials a {
+    width: 40px; height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; color: #fff; text-decoration: none;
+    transition: 0.3s;
+}
+.footer-socials a:hover {
+    background: #00f2fe;
+    color: #000;
+    transform: translateY(-5px);
+}
+
+/* Links */
+.links-col ul { list-style: none; padding: 0; }
+.links-col ul li { margin-bottom: 12px; }
+.links-col ul li a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: 0.3s;
+}
+.links-col ul li a:hover { color: #00f2fe; padding-left: 5px; }
+
+/* Contact Items */
+.foot-contact-item {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.6);
+}
+.foot-contact-item i { color: #00f2fe; font-size: 0.9rem; }
+
+/* Map Styling */
+.map-wrapper {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid rgba(0, 242, 254, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 25px 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .footer-container { grid-template-columns: repeat(2, 1fr); gap: 50px; }
+}
+@media (max-width: 600px) {
+    .footer-container { grid-template-columns: 1fr; }
+    .footer-col { text-align: center; }
+    .footer-socials { justify-content: center; }
+    .foot-contact-item { justify-content: center; }
+}
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <span><i class="fas fa-map-marker-alt"></i> 4606 FM 1960 RD W STE 419 HOUSTON, TX 77069</span>
+        <div>
+            <span><i class="fas fa-phone"></i> +1 (346) 326-2228</span>
+            <span><i class="fas fa-envelope"></i> hello@therankinggeeks.ai</span>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">
+    <a href="#">
+        <img src="https://therankinggeeks.ai/wp-content/uploads/elementor/thumbs/Gradient-TRG-Final-Approved-Logo_Logo-02-qmv7fnpf8mxqltc7c9rhfn52qdhn220soypvarvxfw.png" alt="TRG">
+    </a>
+</div>
+        <nav>
+            <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#services">SERVICES</a></li>
+                <li><a href="#">PROJECTS</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+        <a href="tel:+13463262228" class="btn-proposal">GET AUDIT</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-text" data-aos="fade-right">
+                <h4>Digital Marketing Services</h4>
+                <h1>Future-Proofing Web Presence With <span>AI & SEO</span></h1>
+                <p>Building powerful websites and boosting visibility with SEO, Digital Marketing, and <a href="https://www.google.com/search?kgmid=/g/11mckt4hpz" target="_blank" style="color: inherit; text-decoration: none;">Web Development</a></p>
+                <div class="cta-group">
+                    <a href="#services" class="btn-hero">EXPLORE NOW</a>
+                    <a href="tel:+13463262228" class="btn-hero" style="border-color: rgba(255,255,255,0.2); color: #fff;">TALK TO AN EXPERT</a>
+                </div>
+            </div>
+            <div class="video-container" data-aos="zoom-in">
+                <video autoplay muted loop playsinline><source src="https://motionbgs.com/media/5597/laptop-with-code.960x540.mp4" type="video/mp4"></video>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="about-grid">
+            <div class="about-img-box" data-aos="fade-right">
+                <video autoplay muted loop playsinline><source src="https://v1.pinimg.com/videos/mc/720p/47/45/ed/4745ed0eec38a43cea86f373a08d179e.mp4" type="video/mp4"></video>
+            </div>
+            <div class="about-text" data-aos="fade-left">
+                <h4>OUR DNA</h4>
+                <h2>Bridging The Gap Between <span>AI & Search Authority</span></h2>
+                <p>The Ranking Geeks is a results-driven digital agency specializing in <a href="https://therankinggeeks.ai/" target="_blank" style="color: inherit; text-decoration: none;">SEO services</a>, digital marketing, and web development solutions. We help businesses improve their search engine rankings, online visibility, and organic traffic through smart, data-driven SEO strategies and modern web solutions.
+</p>
+                <div class="stats-grid" style="display: flex; gap: 20px;">
+                    <div class="stat-card" data-aos="flip-up"><h3>95%</h3><p>RETENTION</p></div>
+                    <div class="stat-card" data-aos="flip-up" data-aos-delay="200"><h3>10x</h3><p>GROWTH</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-section" id="services">
+        <div class="section-header" data-aos="fade-up">
+            <h4>WHAT WE MASTER</h4>
+            <h2 style="font-size: clamp(2.5rem, 5vw, 3.8rem); font-weight: 900;">Elite <span style="color: var(--cyan-glow);">SEO & Growth</span> Engineering</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <span class="service-number">01</span>
+                <div class="service-icon"><i class="fas fa-rocket"></i></div>
+                <h3>SEO Engineering</h3>
+                <p>Advanced guest posting, authority link building, and data-driven optimization.</p>
+                <a href="#contact" class="learn-more">Get Started <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <span class="service-number">02</span>
+                <div class="service-icon"><i class="fas fa-terminal"></i></div>
+                <h3>Elite Development</h3>
+                <p>Custom-coded web solutions built for speed, performance, and elite branding.</p>
+                <a href="#contact" class="learn-more">Build Now <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <span class="service-number">03</span>
+                <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
+                <h3>Ads Management</h3>
+                <p>Precision-targeted PPC campaigns engineered for maximum conversion and massive ROI.</p>
+                <a href="#contact" class="learn-more">Scale ROI <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+</body>
+</html>
+<section id="contact" class="cta-section">
+    <div class="cta-container" data-aos="zoom-in">
+        
+        <div class="cta-info">
+            <h2 class="cta-title">Ready to <span>Dominate?</span></h2>
+            <div class="cta-contact-details">
+                <div class="cta-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+1 (346) 326-2228</span>
+                </div>
+                <div class="cta-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>hello@therankinggeeks.ai</span>
+                </div>
+                <div class="cta-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Houston, TX 77069</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-action">
+            <p class="cta-note">Get a personalized growth roadmap engineered for your brand. <a href="https://maps.app.goo.gl/FxDhcmhiPEUXSD8G7" target="_blank" style="color: inherit; text-decoration: none;">Expert SEO</a> and Development execution.</p>
+            <a href="tel:+13463262228" class="btn-cta-main">CALL US NOW</a>
+        </div>
+
+    </div>
+</section>
+<section id="projects" class="work-section">
+    <div class="work-container">
+        
+        <div class="work-card">
+            <div class="work-img">
+                <img src="https://therankinggeeks.ai/wp-content/uploads/elementor/thumbs/7-rbgpg67x4pgb601b0enls5tlfvwbs990sn7tbc3uds.png" alt="Frankey" loading="lazy">
+            </div>
+            <div class="work-overlay-box">
+                <h3>Frankey Locksmith</h3>
+                <a href="https://frankeylocksmith.com/" target="_blank" class="work-link">View Website</a>
+            </div>
+        </div>
+
+        <div class="work-card">
+            <div class="work-img">
+                <img src="https://therankinggeeks.ai/wp-content/uploads/elementor/thumbs/Screenshot-2024-04-19-221610-qmychdlnn71uwhxsegz8r6yol92a3hi254688ch5zk.png" alt="Wakz" loading="lazy">
+            </div>
+            <div class="work-overlay-box">
+                <h3>Wakz Elite</h3>
+                <a href="https://wakzelite.com/" target="_blank" class="work-link">View Website</a>
+            </div>
+        </div>
+
+        <div class="work-card">
+            <div class="work-img">
+                <img src="https://therankinggeeks.ai/wp-content/uploads/elementor/thumbs/4-rbgp6qw6lijsqrq71tzaa1g6zsctlitx5zpj2g2ys0.png" alt="4 Season" loading="lazy">
+            </div>
+            <div class="work-overlay-box">
+                <h3>4 Season</h3>
+                <a href="https://4seasonsremodelinginc.com/" target="_blank" class="work-link">View Website</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+<section id="why-choose" class="why-section" data-aos="fade-up">
+    <div class="why-container">
+        
+        <div class="why-image-wrapper" data-aos="zoom-in">
+            <div class="robot-box">
+                <img src="https://therankinggeeks.ai/wp-content/uploads/2023/11/robot-ZHM8ZSZ.png" alt="AI Robot Ranking Geeks">
+            </div>
+        </div>
+
+        <div class="why-content">
+            <div class="section-header">
+                <h4 class="why-subtitle">ELITE TECHNOLOGY</h4>
+                <h2 class="why-title">Why Partner With <span>The Ranking Geeks?</span></h2>
+                <p class="why-desc">We engineer digital dominance using advanced AI. Our approach combines robotic precision with elite technical SEO expertise.</p>
+            </div>
+
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon-box"><i class="fas fa-microchip"></i></div>
+                    <div class="why-text">
+                        <h3>AI-Powered Strategy</h3>
+                        <p>Advanced machine learning for predictive analysis.</p>
+                    </div>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon-box"><i class="fas fa-code"></i></div>
+                    <div class="why-text">
+                        <h3>Future-Proof SEO</h3>
+                        <p>Techniques built to withstand algorithm updates.</p>
+                    </div>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon-box"><i class="fas fa-bolt"></i></div>
+                    <div class="why-text">
+                        <h3>Data-Driven Results</h3>
+                        <p>Transparent reporting with clear ROI metrics.</p>
+                    </div>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon-box"><i class="fas fa-user-shield"></i></div>
+                    <div class="why-text">
+                        <h3>Dedicated Experts</h3>
+                        <p>Specialized team committed to your success.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<footer class="main-footer">
+    <div class="footer-container">
+        
+        <div class="footer-col branding-col">
+            <div class="footer-logo">
+                <a href="#">
+                    <img src="https://therankinggeeks.ai/wp-content/uploads/elementor/thumbs/Gradient-TRG-Final-Approved-Logo_Logo-02-qmv7fnpf8mxqltc7c9rhfn52qdhn220soypvarvxfw.png" alt="TRG">
+                </a>
+            </div>
+            <p class="footer-about">Engineering digital dominance with elite SEO strategies and custom development solutions. Your partners in growth.</p>
+          <div class="footer-socials">
+    <a href="https://www.facebook.com/therankinggeeks/" target="_blank" title="Facebook">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+    
+    <a href="https://www.instagram.com/therankinggeeks.ai?igshid=NGVhN2U2NjQ0Yg%3D%3D" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://www.linkedin.com/company/the-ranking-geeks/" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin-in"></i>
+    </a>
+</div>
+        </div>
+
+        <div class="footer-col links-col">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Portfolio</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col contact-col">
+            <h3>Contact Info</h3>
+            <div class="foot-contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <span>+1 (346) 326-2228</span>
+            </div>
+            <div class="foot-contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>hello@therankinggeeks.ai</span>
+            </div>
+            <div class="foot-contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Houston, TX 77069</span>
+            </div>
+        </div>
+
+        <div class="footer-col map-col">
+            <h3>Our Location</h3>
+            <div class="map-wrapper">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4828.070401314978!2d-95.5011286!3d29.988265600000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640cd005e14467f%3A0xa83e2b0e2c8f4781!2sRanking%20Geeks%20LLC!5e1!3m2!1sen!2s!4v1775753514843!5m2!1sen!2s" width="100%" height="200" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 The Ranking Geeks. All Rights Reserved.</p>
+    </div>
+</footer>
